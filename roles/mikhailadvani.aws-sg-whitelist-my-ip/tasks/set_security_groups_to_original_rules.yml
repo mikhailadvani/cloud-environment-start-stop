@@ -1,0 +1,11 @@
+- name: Set security group fact
+  set_fact:
+    sg: "{{item|from_json}}"
+
+- name: Reset security groups to previously backed up values
+  ec2_group:
+    description: "{{sg.description}}"
+    name: "{{sg.name}}"
+    rules: "{{sg.rules}}"
+    vpc_id: "{{sg.vpc_id}}"
+

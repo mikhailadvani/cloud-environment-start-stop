@@ -1,0 +1,21 @@
+---
+# tasks file for start_stop_ec2
+
+- name: Get instance details
+  include: get_instance_details.yml
+
+- name: Attach elastic IPs to instances
+  include: start/attach_eips.yml
+  when: action == "start" and instances.elastic_ip == "yes"
+
+- name: Start instances
+  include: start/start_instances.yml
+  when: action == "start"
+
+- name: Detach elastic IPs from instances
+  include: stop/detach_eips.yml
+  when: action == "stop" and instances.elastic_ip == "yes"
+
+- name: Stop instances
+  include: stop/stop_instances.yml
+  when: action == "stop"

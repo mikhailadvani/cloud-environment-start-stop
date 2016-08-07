@@ -1,0 +1,7 @@
+---
+# vars file for start_stop_ec2
+
+instances:
+  tags:
+    Environment: 'Dev'
+  elastic_ip: "yes"

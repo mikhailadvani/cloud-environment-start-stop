@@ -1,0 +1,6 @@
+
+- name: Stop instances
+  ec2:
+    instance_id: "{{item}}"
+    state: stopped
+  with_items: "{{instances_details.instances|map(attribute='id')|list|unique}}"

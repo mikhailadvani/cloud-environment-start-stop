@@ -1,0 +1,27 @@
+- name: Get previous security_group files
+  find: paths="{{path_to_role}}/files"  patterns="sg_*.json"
+  register: find_output
+
+- name: Fail if groups are already there. To prevent update of backed up security groups
+  fail: msg="Files matching sg_*.json exist in the files directory"
+  when: find_output.matched != 0
+
+- name: Get existing security group rules
+  command: "python {{path_to_role}}/files/get_existing_sg_rules_to_backup.py {{item.name}} {{item.vpc_id}}"
+  with_items: "{{security_groups}}"
+  register: security_groups_info
+
+- set_fact:
+    existing_security_groups: "{{security_groups_info.results|map(attribute='stdout_lines')|list}}"
+
+- name: Backup existing security group rules
+  copy: content="{{item.1}}" dest="{{path_to_role}}/files/sg_{{item.0}}.json"
+  with_indexed_items: "{{existing_security_groups}}"
+
+- name: Set EC2 groups
+  ec2_group:
+    name: "{{item.name}}"
+    description: ""
+    rules: "{{item.rules}}"
+    purge_rules: false
+  with_items: "{{security_groups}}"

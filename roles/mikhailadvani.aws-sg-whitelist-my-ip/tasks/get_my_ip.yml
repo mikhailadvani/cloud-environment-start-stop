@@ -1,0 +1,11 @@
+
+- name: Get external IP from checkip.amazonaws.com
+  get_url: url=http://checkip.amazonaws.com dest={{path_to_role}}/files/local_ip force=yes
+
+- name: Read external ip from file
+  command: "cat {{path_to_role}}/files/local_ip"
+  register: local_ip
+
+- name: Set the my_ip variable
+  set_fact:
+    my_ip: "{{local_ip.stdout}}/32"

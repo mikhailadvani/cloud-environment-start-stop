@@ -1,0 +1,52 @@
+galaxy_info:
+  author: Mikhail Advani
+  description: Start stop EC2 instances with optional association/disassociation of elastic IPs
+  company: ThoughtWorks Technologies
+  
+  license: license (MIT)
+  
+  min_ansible_version: 2.0
+
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: GenericUNIX
+    versions:
+    - all
+  - name: OpenBSD
+    versions:
+    - all
+  - name: Fedora
+    versions:
+    - all
+  - name: opensuse
+    versions:
+    - all
+  - name: MacOSX
+    versions:
+    - all
+  - name: Amazon
+    versions:
+    - all
+  - name: FreeBSD
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: GenericLinux
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+
+  galaxy_tags:
+  - aws
+  - ec2
+  - development
+  - cloud
+
+
+dependencies: []

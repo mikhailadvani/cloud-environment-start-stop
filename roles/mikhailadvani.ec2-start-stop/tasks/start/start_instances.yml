@@ -1,0 +1,6 @@
+
+- name: Start instances
+  ec2:
+    instance_id: "{{item}}"
+    state: running
+  with_items: "{{instances_details.instances|map(attribute='id')|list|unique}}"
